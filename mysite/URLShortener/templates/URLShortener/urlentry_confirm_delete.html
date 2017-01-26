@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}Delete URL{% endblock %}
+
+{% block content %}
+<h1>Delete URL Entry  {{ urlentry.original_url }}</h1>
+
+<form method='POST'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-danger" value="Delete"><a href="#">Cancel</a>
+</form>
+{% endblock content %}

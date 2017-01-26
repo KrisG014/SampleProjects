@@ -1,0 +1,30 @@
+{% load static from staticfiles %}
+
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock title %}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/layout.css' %}">
+    </head>
+    <body>
+        <ul>
+             {% block navbar %}
+            <li><a href="{% url 'URLShortener:urlcreate' pk=user.username %}">Add URL</a></li>
+            {% block navbarhome %}
+            <li><a href="{% url 'URLShortener:userurls' pk=user.username %}">Home</a></li>
+            {% endblock navbarhome %}
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">{{user.username}}</a>
+                <div class="dropdown-content">
+                  <a href="{% url 'URLShortener:userupdate' pk=user.username %}">Edit Account Info</a>
+                  <a href="{% url 'URLShortener:userdelete' pk=user.username %}">Delete Account</a>
+                  <a href="#">Logout</a>
+                </div>
+            </li>
+            <li style="float:right"><a class="about" href="/">About</a></li>
+          {% endblock navbar %}
+        </ul>
+        {% block content %}{% endblock content %}
+    </body>
+</html>
+

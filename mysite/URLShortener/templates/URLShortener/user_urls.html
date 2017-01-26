@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}{{user.username}}{% endblock %}
+
+{% block content %}
+<article>
+    <table >
+        <tr>
+            <th></th>
+            <th>Original URL</th>
+            <th>Shortened URL</th>
+            <th>Date Created</th>
+        </tr>
+        {% for urlentry in user.urlentry_set.all %}
+            <tr>
+                <td style="text-align:center"><a href="{% url 'URLShortener:urldelete' pk=urlentry.pk user_id=urlentry.username %}">delete</a></td>
+                <td>{{urlentry.original_url}}</td>
+                <td>{{urlentry.shortened_url}}</td>
+                <td>{{urlentry.created_date}}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+</article>
+
+<article>
+    <div class="user_item"><a href="{% url 'URLShortener:urlcreate' pk=user.username %}">Add URL</a></div>
+</article>
+{% endblock content %}

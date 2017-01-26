@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}{% if not form.instance.pk %}Create URL{% else %}Edit URL{{ form.instance.name }} {% endif %}{% endblock %}
+
+
+{% block content %}
+<h1>{% if not form.instance.pk %}Create URL{% else %}Edit URL{{ form.instance.name }} {% endif %} </h1>
+
+<form method='POST'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-primary" value="Save">
+</form>
+{% endblock content %}>
