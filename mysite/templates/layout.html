@@ -16,9 +16,9 @@
             <li class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">{{user.username}}</a>
                 <div class="dropdown-content">
-                  <a href="{% url 'URLShortener:userupdate' pk=user.username %}">Edit Account Info</a>
-                  <a href="{% url 'URLShortener:userdelete' pk=user.username %}">Delete Account</a>
-                  <a href="#">Logout</a>
+                  <a href="{% url 'Accounts:edituser' pk=user.username %}">Edit Account Info</a>
+                  <a href="#">Delete Account</a>
+                  <a href="{% url 'Accounts:logout' %}">Logout</a>
                 </div>
             </li>
             <li style="float:right"><a class="about" href="/">About</a></li>

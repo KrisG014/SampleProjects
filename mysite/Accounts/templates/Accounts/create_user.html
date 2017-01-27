@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block navbar %}
+<li><a href="{% url 'Accounts:login' %}">Login</a></li>
+<li><a href="{% url 'Accounts:createuser' %}">Create Account</a></li>
+<li><a href="{% url 'home' %}">Home</a></li>
+
+<li style="float:right"><a href="/">About</a></li>
+{% endblock navbar %}
+
+{% block title %}Signup{% endblock title %}
+
+{% block content %}
+<h1>{{page_title}}</h1>
+
+<form method='POST'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-primary" value="Save">
+</form>
+{% endblock content %}

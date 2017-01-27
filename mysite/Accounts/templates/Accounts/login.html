@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block navbar %}
+<li><a href="{% url 'Accounts:login' %}">Login</a></li>
+<li><a href="{% url 'Accounts:createuser' %}">Create Account</a></li>
+<li><a href="{% url 'home' %}">Home</a></li>
+
+<li style="float:right"><a href="/">About</a></li>
+{% endblock navbar %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h1>Login</h1>
+    <form method="post" action="{% url 'Accounts:login' %}">
+    {% csrf_token %}
+    <table>
+    <tr>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}</td>
+    </tr>
+    <tr>
+        <td>{{ form.password.label_tag }}</td>
+        <td>{{ form.password }}</td>
+    </tr>
+    </table>
+
+    <input type="submit" value="login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+</div>
+{% endblock content %}

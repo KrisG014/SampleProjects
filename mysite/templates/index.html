@@ -3,8 +3,8 @@
 {% block title %}Welcome!{% endblock %}
 
 {% block navbar %}
-<li><a href="{% url 'URLShortener:userlist' %}">Login</a></li>
-<li><a href="{% url 'URLShortener:usercreate' %}">Create Account</a></li>
+<li><a href="{% url 'Accounts:login' %}">Login</a></li>
+<li><a href="{% url 'Accounts:createuser' %}">Create Account</a></li>
 
 <li style="float:right"><a href="/">About</a></li>
 {% endblock navbar %}
@@ -16,8 +16,8 @@
         <p>Greetings, and welcome to Kristyn's Fancy little URL Shortener.  If you're tired of typing in all those long URLs, you've come to the right place!  To get started, create an account, or just log in.</p>
         <h2>What would you like to do?</h2>
             <ol>
-                <div class="user_item"><a href="{% url 'URLShortener:userlist' %}">Login</a></div>
-                <div class="user_item"><a href="{% url 'URLShortener:usercreate' %}">Create Account</a></div>
+                <div class="user_item"><a href="{% url 'Accounts:login' %}">Login</a></div>
+                <div class="user_item"><a href="{% url 'Accounts:createuser' %}">Create Account</a></div>
             </ol>
         <p></p>
     </section>
