@@ -3,16 +3,14 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth.models import User
-from django import forms
-from django.views import generic
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
+from django.contrib.auth import authenticate, login
 from datetime import datetime
 
 from .models import URLEntry
 from .mixins import *
+from .functions import *
 
 # Create your views here.
 def index(request):
@@ -27,26 +25,19 @@ def UserList(request):
     users = User.objects.all()
     return render(request, 'URLShortener/user_list.html', {'users': users})
 
+@login_required(login_url='/')
 def UserURLDetail(request, pk):
     if IsUserLoggedIn(request, pk):
         if request.user.is_authenticated:
-            user = get_object_or_404(User, username=pk)
-            return render(request, 'URLShortener/user_detail.html', {'user': user})
+            urls = URLEntry.objects.filter(user=request.user)
+            return render(request, 'URLShortener/user_detail.html', {'urls': urls})
     elif request.user.username == "":
         return HttpResponseRedirect("/")
     return HttpResponseRedirect(reverse('URLShortener:userurls', kwargs={'pk': request.user.username} ))
 
-
-class URLCreateView(LoginRequiredMixin, CreateView):
-    fields = ("username", "original_url", "shortened_url", "created_date")
-    model = URLEntry
-
-    def get_initial(self):
-        initial = super(URLCreateView, self).get_initial()
-        now = datetime.now()
-        initial["username"] = self.request.user
-        initial["created_date"] = now.strftime('%Y-%m-%d %H:%M')
-        return initial
+@login_required(login_url='/')
+def URLCreateView(request, pk):
+    return render(request, "URLShortener/urlcreate_form.html")
 
 class URLUpdateView(LoginRequiredMixin, UpdateView):
     fields = ("original_url", "shortened_url", "created_date")
@@ -55,8 +46,22 @@ class URLUpdateView(LoginRequiredMixin, UpdateView):
 
 class URLDeleteView(LoginRequiredMixin, DeleteView):
     model = URLEntry
-    success_url = reverse_lazy("URLShortener:userurls")
+    success_url = reverse_lazy("URLShortener:user_home")
 
-def IsUserLoggedIn(request, username):
-    return request.user.username == username
+@login_required(login_url='/')
+def URLCreationCompleteRedirect(request, pk):
+    original_url = request.POST.get('original_url')
+    url_id, is_duplicate = UniqueID(original_url, request.user)
+    shortened_url = CreateShortenedURL(pk, url_id)
+    now = datetime.now()
+    created_date = now.strftime('%Y-%m-%d %H:%M')
+    url_entry = ""
+    if is_duplicate:
+        url_entry = URLEntry.objects.get(url_id=url_id,)
+    else:
+        url_entry = URLEntry.objects.create(url_id=url_id, user=request.user, original_url=original_url, shortened_url=shortened_url, created_date=created_date)
+    return render(request, "URLShortener/urlentry_form.html", {'urlentry': url_entry})
 
+def URLRedirect(request, user_id, pk):
+    url_entry = get_object_or_404(URLEntry, url_id=pk)
+    return HttpResponseRedirect(url_entry.original_url)

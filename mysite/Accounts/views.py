@@ -1,7 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import UpdateView
+from django.contrib.auth.models import User
+from django.views import generic
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import  reverse_lazy
-from django.views import generic
 
 from . import forms
 
@@ -32,7 +35,14 @@ class CreateUserView(generic.CreateView):
     success_url = reverse_lazy("login")
     template_name = "Accounts/create_user.html"
 
+'''
 class EditUserView(generic.UpdateView):
+    model = User
     form_class = forms.UserEditForm
-    success_url = reverse_lazy("URLShortener:user_home")
-    template_name = "Accounts/edit_user.html"
+    template_name = "Accounts/edit_user.html"'''
+
+class EditUserView(generic.UpdateView):
+    model = User
+
+    def get_queryset(self):
+        return self.model.objects.filter(username=str(self.request.user.username))

@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}{% if not form.instance.pk %}Create URL{% else %}Edit URL{{ form.instance.name }} {% endif %}{% endblock %}
+
+
+{% block content %}
+<h1>{% if not form.instance.pk %}Create URL{% else %}Edit URL{{ form.instance.name }} {% endif %} </h1>
+
+<form method='POST' action="{% url 'URLShortener:urlcreaterequest' pk=user.username %}" method='POST'>
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    Enter your Original URL Here: <input type="text" name="original_url"><br>
+    <input type="submit" value="Get Shortened URL!">
+</form>
+{% endblock content %}>

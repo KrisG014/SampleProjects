@@ -11,7 +11,7 @@
             <th>Shortened URL</th>
             <th>Date Created</th>
         </tr>
-        {% for urlentry in user.urlentry_set.all %}
+        {% for urlentry in urls %}
             <tr>
                 <td style="text-align:center"><a href="{% url 'URLShortener:urldelete' pk=urlentry.pk user_id=user.username %}">delete</a></td>
                 <td>{{urlentry.original_url}}</td>

@@ -4,11 +4,9 @@
 
 
 {% block content %}
-<h1>{% if not form.instance.pk %}Create URL{% else %}Edit URL{{ form.instance.name }} {% endif %} </h1>
+<h1>RESULTS!</h1>
 
-<form method='POST'>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" class="btn btn-primary" value="Save">
-</form>
+
+<h1>{{ urlentry.shortened_url }}</h1>
+
 {% endblock content %}>

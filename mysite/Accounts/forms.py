@@ -12,13 +12,3 @@ class UserCreateForm(UserCreationForm):
             self.fields["first_name"].label = "First Name"
             self.fields["last_name"].label = "Last Name"
 
-class UserEditForm(UserChangeForm):
-    class Meta:
-        fields = ("username", "email", "first_name", "last_name")
-        model = User
-
-        def __init__(self, *args, **kwargs):
-            super(UserEditForm, self).__init__(*args, **kwargs)
-            self.fields["email"].label = "Email Address"
-            self.fields["first_name"].label = "First Name"
-            self.fields["last_name"].label = "Last Name"
