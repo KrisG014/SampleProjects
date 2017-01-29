@@ -22,8 +22,14 @@ def UniqueID(url, user):
             is_duplicate = True
         else:
             id = ((url_len + 1)*len(id))%10000
-            while URLEntry.objects.filter(url_id=id).exists()  and  len(str(id))<11:
-                id += 1
+            previous_url_entry = URLEntry.objects.filter(url_id=id)
+            while previous_url_entry.exists()  and  len(str(id))<11:
+                if previous_url_entry[0].user == user and previous_url_entry[0].original_url == url:
+                    is_duplicate = True
+                    break
+                else:
+                    id += 1
+                    previous_url_entry = URLEntry.objects.filter(url_id=id)
 
     if URLEntry.objects.filter(url_id=id).exists()  and  not is_duplicate:
         #if for some reason we end up here, which we probably won't, the empty string means we couldn't find a place for it

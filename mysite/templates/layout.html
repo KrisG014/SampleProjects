@@ -14,7 +14,7 @@
             <li><a href="{% url 'URLShortener:userurls' pk=user.username %}">Home</a></li>
             {% endblock navbarhome %}
             <li><a href="{% url 'Accounts:logout' %}">Logout {{user.username}}</a></li>
-            <li style="float:right"><a class="about" href="/">About</a></li>
+            <li style="float:right"><a class="about" href="{% url 'about' %}">About</a></li>
           {% endblock navbar %}
         </ul>
         {% block content %}{% endblock content %}

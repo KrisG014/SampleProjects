@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import UpdateView
 from django.contrib.auth.models import User
 from django.views import generic
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import  reverse_lazy
+from django.shortcuts import  render
+from django.contrib.auth.decorators import login_required
 
 from . import forms
 
@@ -23,12 +24,20 @@ class LoginView(generic.FormView):
         login(self.request, form.get_user() )
         return super(LoginView, self).form_valid(form)
 
+@login_required(login_url='/')
+def LogoutView(request):
+    logout(request)
+    return render(request, "index.html", {'is_logout': True})
+'''
 class LogoutView(generic.RedirectView):
-    url = reverse_lazy("home")
+    #url = reverse_lazy("home")
 
     def get(self, request, *args, **kwargs):
         logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse_lazy('home', *args, kwargs={'is_logout': False})'''
 
 class CreateUserView(generic.CreateView):
     form_class = forms.UserCreateForm
@@ -41,6 +50,7 @@ class EditUserView(generic.UpdateView):
     form_class = forms.UserEditForm
     template_name = "Accounts/edit_user.html"'''
 
+@login_required(login_url='/')
 class EditUserView(generic.UpdateView):
     model = User
 

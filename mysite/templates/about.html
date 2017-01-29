@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block navbar %}
+
+{% endblock navbar %}
+
+{% block content %}
+<article>
+    <section>
+        <h1 style="text-align: center">Oh hey!</h1>
+        <p style="text-align: center; font-size: 20px">Thanks for visiting my demo website!  I'm Kristyn, and I'm a developer currently based in the states (Florida, specifically).
+        Mainly I develop desktop apps in C++, but recently I've decided to start learning web development as well.  I studied math in college and earned a Masters in it before deciding Computer Science was the
+        mathematical application I enjoyed most.  After figuring that out, I went back for my BS in Computing.  When I'm not being super nerdy, I enjoy exploring the world with a backpack.  I also enjoy
+        musical theater, soccer, and a good craft beer.  I also very much like rainbows, in case you haven't figured that out from my page design.
+
+
+        Thanks for stopping by!  I hope you've enjoyed my website :)</p>
+        <br><br>
+        <h2 style="text-align: center">So...where to next?</h2>
+        <div align="center">
+            <div class="button" style="display:inline;"><a href="{% url 'Accounts:login' %}">Login</a></div>
+            <div class="button" style="display:inline;"><a href="{% url 'home' %}">Return Home</a></div>
+        </div>
+    </section>
+</article>
+{% endblock content %}

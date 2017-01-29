@@ -21,10 +21,11 @@ from . import views
 
 urlpatterns = [
     url(r'^URLShortener/', include('URLShortener.urls', namespace='URLShortener') ),
-    url(r'^kg/', include('URLShortener.urls', namespace='URLShortener')),
+    url(r'^http://www.kg/', include('URLShortener.urls', namespace='URLShortener')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('Accounts.urls', namespace='Accounts') ),
     url(r'^accounts/', include('django.contrib.auth.urls') ),
+    url(r'^about/', views.about, name='about' ),
     url(r'^$', views.HomeView.as_view(), name='home'),
 ]
 

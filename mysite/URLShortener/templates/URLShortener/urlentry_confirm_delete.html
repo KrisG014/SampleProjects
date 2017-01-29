@@ -3,11 +3,13 @@
 {% block title %}Delete URL{% endblock %}
 
 {% block content %}
-<h1>Delete URL Entry  {{ urlentry.original_url }}</h1>
+<h1>Delete URL Entry:</h1>
+<h2>{{ urlentry.original_url }}</h2>
 
 <form method='POST'>
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" class="btn btn-danger" value="Delete"><a href="#">Cancel</a>
+    <input class="button" type="submit" class="btn btn-danger" value="Delete">
+    <input class="button" type="submit" class="btn btn-danger" value="Cancel" formaction="{% url 'URLShortener:userurls' pk=user.username %}">
 </form>
 {% endblock content %}

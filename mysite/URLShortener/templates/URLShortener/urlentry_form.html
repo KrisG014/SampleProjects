@@ -8,5 +8,7 @@
 
 
 <h1>{{ urlentry.shortened_url }}</h1>
-
+<br>
+<div class="button" style="display:inline"><a href="{% url 'URLShortener:urlcreate' pk=user.username %}">Create Another!</a></div>
+<div class="button" style="display:inline"><a href="{% url 'URLShortener:userurls' pk=user.username %}">Return to URL List</a></div>
 {% endblock content %}>

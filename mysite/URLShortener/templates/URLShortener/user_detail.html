@@ -18,12 +18,13 @@
                 <td>{{urlentry.shortened_url}}</td>
                 <td>{{urlentry.created_date}}</td>
             </tr>
+        {% empty %}
+            <br><h2>You don't have any URLs yet!  Click "Add URL" to add one.</h2>
         {% endfor %}
 
     </table>
 </article>
-
 <article>
-    <div class="user_item"><a href="{% url 'URLShortener:urlcreate' pk=user.username %}">Add URL</a></div>
+    <br><div style="height: 45px" class="button"><a style="font-size: 35px;" href="{% url 'URLShortener:urlcreate' pk=user.username %}">Add URL</a></div>
 </article>
 {% endblock content %}

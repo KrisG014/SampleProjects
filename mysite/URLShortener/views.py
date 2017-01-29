@@ -5,7 +5,8 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth.models import User
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
 from datetime import datetime
 
 from .models import URLEntry
@@ -20,10 +21,6 @@ def UserHomeRedirect(request):
     if request.user.username == "":
         return HttpResponseRedirect("/")
     return HttpResponseRedirect(reverse('URLShortener:userurls', kwargs={'pk': request.user.username} ))
-    
-def UserList(request):
-    users = User.objects.all()
-    return render(request, 'URLShortener/user_list.html', {'users': users})
 
 @login_required(login_url='/')
 def UserURLDetail(request, pk):
@@ -37,7 +34,7 @@ def UserURLDetail(request, pk):
 
 @login_required(login_url='/')
 def URLCreateView(request, pk):
-    return render(request, "URLShortener/urlcreate_form.html")
+    return render(request, "URLShortener/urlcreate_form.html",  {'enter_valid_url': False} )
 
 class URLUpdateView(LoginRequiredMixin, UpdateView):
     fields = ("original_url", "shortened_url", "created_date")
@@ -51,6 +48,12 @@ class URLDeleteView(LoginRequiredMixin, DeleteView):
 @login_required(login_url='/')
 def URLCreationCompleteRedirect(request, pk):
     original_url = request.POST.get('original_url')
+    val = URLValidator()
+    try:
+        val(original_url)
+    except ValidationError, e:
+        return render(request, "URLShortener/urlcreate_form.html", {'enter_valid_url': True})
+
     url_id, is_duplicate = UniqueID(original_url, request.user)
     shortened_url = CreateShortenedURL(pk, url_id)
     now = datetime.now()

@@ -1,17 +1,18 @@
 h1 {
-    color: #ffff4d
+    color: #ffde55;
+    font-size: 35px;
 }
 
 h2 {
-    color: purple
+    color: #7AB7AC;
 }
 
 h3 {
-    color: red
+    color: #99e373;
 }
 
 p {
-    color: green;
+    color: #88ccc0;
 }
 
 body {
@@ -24,7 +25,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #1aa3ff
+    background-color: #7fd481;
 }
 
 
@@ -44,7 +45,7 @@ li a, .dropbtn {
 }
 
 li a:hover, .dropdown:hover .dropbtn {
-    background-color: #ff8000;
+    background-color: #ffde55;
 }
 
 li.dropdown {
@@ -54,7 +55,7 @@ li.dropdown {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #ff0080;
+    background-color: #99e373
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -68,24 +69,41 @@ li.dropdown {
     text-align: left;
 }
 
-.dropdown-content a:hover {background-color: #1aff1a}
+.dropdown-content a:hover {background-color: 	#ffde55}
 
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-.user_item {
-    background-color: #80ffd4;
+.button {
+    border-radius: 35px;
+    background-color: #fff05c;
+    border: 3px solid #7fd481;
+    padding: 10px;
+    margin: 25px;
     width: 150px;
-    height: 50px;
-    padding: 20px;
-    margin: 20px;
-    border-style: solid;
-    border-width: 10px 10px 10px 10px;
-    border-color: #ff66cc;
-    font-size: 30px;
-    text-align: center;
+    height: 70px;
     vertical-align: middle;
+    text-align: center;
+    font-size: 30px;
+    font-color: #88ccc0;
+}
+
+.button_small {
+    border-radius: 25px;
+    background-color: #fff05c;
+    border: 2px solid #7fd481;
+    margin: 15px 0px 0px 0px;
+    width: 200px;
+    height: 30px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 20px;
+    font-color: #88ccc0;
+}
+
+.button:hover, .button_small:hover {
+	box-shadow: 6px 8px 12px #dfdfdf;
 }
 
 a:link, a:visited {;
@@ -95,7 +113,7 @@ a:link, a:visited {;
 
 table {
     padding-top: 25px;
-    width:100%;
+    table-layout: auto;
 }
 table, th, td {
     border: 0px solid black;
@@ -106,15 +124,15 @@ th, td {
 }
 
 th {
-	background-color: #80ffd4;
+	background-color: #ffde55;
     color: black;
     font-size: 25px
 }
 table tr:nth-child(even) {
-    background-color: #eeccff;
+    background-color: #7fd481;
     font-size: 18px
 }
 table tr:nth-child(odd) {
-   background-color: #d580ff;
+   background-color: #99e373;
    font-size: 18px
 }

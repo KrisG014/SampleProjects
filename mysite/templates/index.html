@@ -6,19 +6,21 @@
 <li><a href="{% url 'Accounts:login' %}">Login</a></li>
 <li><a href="{% url 'Accounts:createuser' %}">Create Account</a></li>
 
-<li style="float:right"><a href="/">About</a></li>
+<li style="float:right"><a href="{% url 'about' %}">About</a></li>
 {% endblock navbar %}
 
 {% block content %}
 <article>
     <section>
-        <h1>Welcome!</h1>
-        <p>Greetings, and welcome to Kristyn's Fancy little URL Shortener.  If you're tired of typing in all those long URLs, you've come to the right place!  To get started, create an account, or just log in.</p>
-        <h2>What would you like to do?</h2>
-            <ol>
-                <div class="user_item"><a href="{% url 'Accounts:login' %}">Login</a></div>
-                <div class="user_item"><a href="{% url 'Accounts:createuser' %}">Create Account</a></div>
-            </ol>
+        <h1 style="text-align: center">Welcome!</h1>
+        <p style="text-align: center; font-size: 20px">Greetings, and welcome to Kristyn's Fancy little URL Shortener.  If you're tired of typing in all those long URLs, you've come to the right place!  To get started, create an account, or just log in.</p>
+
+        <br>{% if is_logout %}<h2 style="color: red; text-align:center">Logout Successful!</h2>{% else %}{% endif %}<br>
+        <div align="center" >
+        <h2 style="text-align: center;">What would you like to do?</h2><br>
+            <div class="button" style="display:inline;"><a href="{% url 'Accounts:login' %}">Login</a></div>
+            <div class="button" style="display:inline;"><a href="{% url 'Accounts:createuser' %}">Create Account</a></div>
+        </div>
         <p></p>
     </section>
 </article>

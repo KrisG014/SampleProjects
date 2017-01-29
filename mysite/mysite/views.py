@@ -14,3 +14,6 @@ class HomeView(TemplateView):
         context = super(HomeView,self).get_context_data(**kwargs)
         context["users"] = ['kgalane', 'dcarrick']
         return context
+
+def about(request):
+    return render(request, 'about.html')
