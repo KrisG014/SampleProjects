@@ -8,7 +8,7 @@ import datetime
 # Create your models here.
 
 class URLEntry(models.Model):
-    url_id = models.CharField(unique=True, max_length=10)
+    url_id = models.CharField(unique=True, max_length=10, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     original_url = models.URLField(max_length=300)
     shortened_url = models.URLField()    
