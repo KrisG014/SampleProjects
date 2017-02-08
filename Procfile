@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath mysite mysite.settings --log-file -
+web: gunicorn --pythonpath mysite mysite.deploy --log-file -
