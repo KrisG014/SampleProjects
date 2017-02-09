@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.views import generic
 from django.contrib.auth import login, logout
@@ -18,6 +17,7 @@ class LoginView(generic.FormView):
     def get_form(self, form_class=None):
         if form_class is None:
             form_class = self.get_form_class()
+
         return form_class(self.request, **self.get_form_kwargs() )
 
     def form_valid(self, form):
@@ -43,12 +43,6 @@ class CreateUserView(generic.CreateView):
     form_class = forms.UserCreateForm
     success_url = reverse_lazy("login")
     template_name = "Accounts/create_user.html"
-
-'''
-class EditUserView(generic.UpdateView):
-    model = User
-    form_class = forms.UserEditForm
-    template_name = "Accounts/edit_user.html"'''
 
 @login_required(login_url='/')
 class EditUserView(generic.UpdateView):

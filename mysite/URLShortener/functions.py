@@ -4,8 +4,10 @@ def UniqueID(url, user):
     #expects that url is a string and user is a User object
     cleaned_url = url.replace("http://", "")
     cleaned_url = cleaned_url.replace("www", "")
+    cleaned_url = cleaned_url.replace("/", "")
+    cleaned_url = cleaned_url.replace(".", "")
     url_len = len(cleaned_url)
-    num_digits = (url_len % 10) + 1
+    num_digits = (url_len % 5) + 1
     interval = len(cleaned_url)/num_digits
     index = 0
     id = ""
@@ -23,7 +25,7 @@ def UniqueID(url, user):
         else:
             id = ((url_len + 1)*len(id))%10000
             previous_url_entry = URLEntry.objects.filter(url_id=id)
-            while previous_url_entry.exists()  and  len(str(id))<11:
+            while previous_url_entry.exists()  and  len(str(id))<6:
                 if previous_url_entry[0].user == user and previous_url_entry[0].original_url == url:
                     is_duplicate = True
                     break
@@ -38,8 +40,8 @@ def UniqueID(url, user):
     return str(id), is_duplicate
 
 def CreateShortenedURL(username, id):
-    return str("http://www.kg/" + str(username) + "." + str(id) + "/")
-    # url(r'^kg/(?P<user_id>\w+\d*).(?P<pk>\w{1,10})$', views.URLRedirect, name='url_redirect'),
+    return str("remishakes.herokuapp.com/kg." + str(username) + "." + str(id) + "/")
+    # url(r'^host_site/(?P<user_id>\w+\d*).(?P<pk>\w{1,10})$', views.URLRedirect, name='url_redirect'),
 
 
 def IsUserLoggedIn(request, username):

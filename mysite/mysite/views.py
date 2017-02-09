@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse
 
@@ -10,10 +10,16 @@ def index(request):
 class HomeView(TemplateView):
     template_name = 'index.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(HomeView,self).get_context_data(**kwargs)
-        context["users"] = ['kgalane', 'dcarrick']
-        return context
+    def get(self, request, *args, **kwargs):
+        if request.user.username != "":
+            return HttpResponseRedirect(reverse('URLShortener:userurls', kwargs={'pk': request.user.username}))
+        return render(request, 'index.html')
 
 def about(request):
-    return render(request, 'about.html')
+    user_has_id = False
+    if request.user.username != "":
+        user_has_id = True
+    return render(request, 'about.html', {'user_has_id': user_has_id})
+
+def ShortenedURLRedirect(request, user_id, pk):
+    return HttpResponseRedirect(reverse('URLShortener:url_redirect', kwargs={'user_id' : user_id, 'pk': pk}))

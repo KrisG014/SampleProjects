@@ -1,22 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.contrib.auth.models import User
-from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
+from django.views.generic import DeleteView
 from django.contrib.auth.decorators import login_required
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from datetime import datetime
 
-from .models import URLEntry
-from .mixins import *
 from .functions import *
 
 # Create your views here.
-def index(request):
-    return HttpResponse("Hey!  You've logged in!")  
-
 def UserHomeRedirect(request):
     if request.user.username == "":
         return HttpResponseRedirect("/")
@@ -35,11 +29,6 @@ def UserURLDetail(request, pk):
 @login_required(login_url='/')
 def URLCreateView(request, pk):
     return render(request, "URLShortener/urlcreate_form.html",  {'enter_valid_url': False} )
-
-class URLUpdateView(LoginRequiredMixin, UpdateView):
-    fields = ("original_url", "shortened_url", "created_date")
-    model = URLEntry
-
 
 class URLDeleteView(LoginRequiredMixin, DeleteView):
     model = URLEntry

@@ -19,10 +19,17 @@
         Thanks for stopping by!  I hope you've enjoyed my website :)</p>
         <br><br>
         <h2 style="text-align: center">So...where to next?</h2>
+        {% if user_has_id %}
+        <div align="center">
+            <div class="button" style="display:inline;"><a href="{% url 'Accounts:logout' %}">Logout</a></div>
+            <div class="button" style="display:inline;"><a href="{% url 'URLShortener:userurls' pk=user.username %}">Return Home</a></div>
+        </div>
+        {% else %}
         <div align="center">
             <div class="button" style="display:inline;"><a href="{% url 'Accounts:login' %}">Login</a></div>
             <div class="button" style="display:inline;"><a href="{% url 'home' %}">Return Home</a></div>
         </div>
+        {% endif %}
     </section>
 </article>
 {% endblock content %}
